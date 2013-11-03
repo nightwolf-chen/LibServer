@@ -1,0 +1,253 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="include/Header.jsp" %>
+        
+<script>var Do=function(){Do.actions.push([].slice.call(arguments))};Do.ready=function(){Do.actions.push([].slice.call(arguments))};Do.add=Do.define=function(a,b){Do.mods[a]=b};Do.global=function(){Do.global.mods=Array.prototype.concat(Do.global.mods,[].slice.call(arguments))};Do.global.mods=[];Do.mods={};Do.actions=[];</script>
+
+<link rel="shortcut icon" href="http://douban.fm/favicon.ico" type="image/x-icon">
+<link href="http://img3.douban.com/css/packed_core3591643421.css" rel="stylesheet" type="text/css">
+<script> (function(d){var i=function(b,a,c){var e=new Date,f,a=a||30,c=c||"/";e.setTime(e.getTime()+a*864E5);a="; expires="+e.toGMTString();for(f in b)d.cookie=f+"="+b[f]+a+"; path="+c},j=function(b){b+="=";var a,c,e,f=d.cookie.split(";");for(c=0,e=f.length;c<e;c++)if(a=f[c].replace(/^\s+|\s+$/g,""),a.indexOf(b)==0)return a.substring(b.length,a.length).replace(/\"/g,"");return null},h=d.write,k={"douban.com":1,"douban.fm":1,"google.com":1,"googleapis.com":1,"gmaptiles.co.kr":1,"gstatic.com":1,"google-analytics.com":1, "googleadservices.com":1},l=function(b,a){var c=new Image;c.onload=function(){};c.src="http://www.douban.com/j/except_report?kind=ra022&reason="+encodeURIComponent(b)+"&environment="+encodeURIComponent(a)},g=function(b){try{h.call(d,b)}catch(a){h(b)}},m=/<script.*?src\=["']?([^"'\s>]+)/ig,n=/http:\/\/(.+?)\.([^\/]+).+/i;d.writeln=d.write=function(b){var a=m.exec(b),c;a?(c=n.exec(a[1]))?k[c[2]]?g(b):j("hj")!=="tqs"&&(l(a[1],location.href),i({hj:"tqs"},1),setTimeout(function(){location.replace(location.href)}, 50)):g(b):g(b)}})(document); </script>
+
+<link href="http://img3.douban.com/css/fm/packed_fm_home5364045413.css" rel="stylesheet" type="text/css">
+<!--[if IE 6]>
+<script>
+try {
+  document.execCommand("BackgroundImageCache", false, true);
+} catch(e) { }
+</script>
+<![endif]-->
+<script>
+    function set_cookie(g,f,d,e){var b=new Date(),a,c;b.setTime(b.getTime()+((f||30)*24*60*60*1000));a="; expires="+b.toGMTString();for(c in g){document.cookie=c+"="+g[c]+a+"; domain="+(d||"douban.com")+"; path="+(e||"/")}}function get_cookie(b){var e=b+"=",a=document.cookie.split(";"),d,f;for(d=0;d<a.length;d++){f=a[d];while(f.charAt(0)==" "){f=f.substring(1,f.length)}if(f.indexOf(e)===0){return f.substring(e.length,f.length).replace(/\"/g,"")}}return null};;
+
+    Do.add('post_withck', {
+        path: "http://img3.douban.com/js/core/packed_post_withck3172127902.js",
+        type: "js"
+    });
+    Do.add('swfobject', {
+        path: "http://img3.douban.com/js/packed_swfobject4154961822.js",
+        type:'js'
+    });
+    Do.add('template', {
+        path: "http://img3.douban.com/js/packed_jquery.template7608347074.js",
+        type:'js'
+    });
+    Do.add('helpers', {
+        path: "http://img3.douban.com/js/fm/packed_index_helpers3811307895.js",
+        type: "js"
+    });
+    window.name = '_fm';
+    window.consts = {
+        ERR_CAPTCHA_INCORRECT: 1011,
+        FM_URL: "http://douban.fm",
+        CHL_REC_KIND: 3072,
+        LOGIN_EVENT: "user:login"
+    };
+    window.flags = {
+        is_user_login: false
+    };
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-7019765-3']);
+    _gaq.push(['_trackPageview']);
+
+    Do.ready(function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    });
+
+</script>
+
+        
+
+
+    
+
+
+
+
+
+
+<div id="fm-sidebar">
+    
+    <div class="fm-sidectrl fm-ctrlline">
+        <div id="fm-sidebar-ctrl" title="展开全部兆赫" data-opt_title="收起全部兆赫"></div>
+    </div>
+</div>
+<div class="fm-side-scrollbar" style="display:none;">
+    <a class="scrllbar-slider">
+        <div class="ss-top"></div>
+    </a>
+    <div class="scrollbg"></div>
+</div>
+<div id="explore_tip" class="side_tip"> <em></em> <div>更多兆赫</div> </div>
+
+<div class="fm_short_tips hide"></div>
+<script>
+    Do.add('fmdrag', {path: "http://img3.douban.com/js/fm/packed_fm_jdrag2222621594.js", type:'js'});
+    Do.ready('mousewheel','template', 'helpers','fmdrag', function(){
+        var ss_number = 5;
+        (function(){var w=$.browser.mozilla&&$.browser.version,e=200;var A=null,h=null,m=null,u=null;function a(C){if(!C){return false}this._init(C)}a.prototype={_init:function(C){var D=this;D.pannel=C.pannel;D.scrollbar=C.scrollbar;D.scrollbar.data("o",D);D.scrollbar.bind("SHOW_SCROLLBAR",D.showScrollBar);D.scrollbar.bind("HIDE_SCROLLBAR",D.hideScrollBar);D.scrollbar.bind("RESIZE_SCROLLBAR",D.dealScrollBarSize);D.scrollbar.bind("START_SCROLLSTATUS",D.startScrollStatus);D.scrollbar.bind("STOP_SCROLLSTATUS",D.stopScrollStatus);D.scrollbar.bind("drag",D.dealScrollBarDrag);D.scrollbar.click(D.dealScrollBarClick);$.event.trigger("RESIZE_SCROLLBAR");D.scrollbar.find(".scrllbar-slider").draggable({axis:"y",snapMode:"inner",containment:"parent"}).click(function(E){E.stopPropagation()})},dealScrollBarSize:function(){var I;if(this.pannel){I=this}else{I=$(this).data("o")}var G=I.pannel.find(".fm-side-cont").outerHeight(),C=I.pannel.outerHeight(),H=I.scrollbar.outerHeight(),F=G/C,D=Math.floor(H/F),E=Math.floor(I.pannel.scrollTop()/F);I.barRatio=F;I.scrollbar.find(".scrllbar-slider").css({height:D,top:E})},dealScrollBarDrag:function(C){var D=$(this).data("o");$(".fm-side-inner").scrollTop(Math.floor(parseInt(D.scrollbar.find(".scrllbar-slider").css("top"),10)*D.barRatio))},dealScrollBarClick:function(C){var D=$(this).data("o");$(".fm-side-inner").scrollTop(Math.floor(C.pageY*D.barRatio));D.dealScrollBarSize()},startScrollStatus:function(C){$("html,#fm-sidebar, #fm-section, #fm-channel-list,#fm-section2,#fm-section3").bind("mousewheel",function(I,J,F,E){var H=I.target,D,G=$(".fm-side-inner").scrollTop();if($.browser.webkit){D=Math.abs(E)*50}else{if($.browser.mozilla){if(w>=3.5){D=Math.abs(E)*3}else{D=Math.abs(E)*30}}else{if($.browser.msie){if($.browser.version<8||$.browser.version>=6){D=Math.abs(E)*50}else{D=Math.abs(E)*10}}else{D=Math.abs(E)*10}}}$(".fm-side-inner").scrollTop(G-D*E);$.event.trigger("RESIZE_SCROLLBAR");return false})},stopScrollStatus:function(C){$("html,#fm-sidebar, #fm-section, #fm-channel-list,#fm-section2,#fm-section3").unbind("mousewheel")},showScrollBar:function(C){$.event.trigger("RESIZE_SCROLLBAR");$(this).data("o").scrollbar.fadeIn(500)},hideScrollBar:function(C){$(this).data("o").scrollbar.fadeOut(500)}};var z=new a({pannel:$(".fm-side-inner"),scrollbar:$(".fm-side-scrollbar")});$.event.trigger("HIDE_SCROLLBAR");var n=null;$(".fm-side-inner").delegate(".meta .creator","mouseenter mouseleave",function(D){var C=$(".fm_creator_tip");clearTimeout(n);if(D.type=="mouseenter"){var E=$(D.currentTarget).offset();n=setTimeout(function(){C.css("top",E.top+35);C.css("left",E.left-35);C.fadeIn(100)},1000)}else{clearTimeout(n);C.fadeOut(100)}});$("#side-search-form").submit(function(F){F.preventDefault();var E=$("#fm-side-search");var G=E.attr("placeholder");var D=E.val().replace(/(^\s*)|(\s*$)/g,"");if(D==G||D===""){E.val(" ");return false}else{var C={keyword:D};A=C;side_show_search(0,C)}});$("#fm-side-search").placeholder();$(".fm-side-inner").delegate(".longlist li, .fm-side-taglist li, .shortlist li, .detail-list li, b.sectitle","mouseenter mouseleave",function(C){if(C.type=="mouseleave"){$(C.currentTarget).removeClass("hover")}else{if(!$(C.currentTarget).hasClass("playing")){$(C.currentTarget).addClass("hover")}}});var x=null;$(".fm-sidelist-wrapper").delegate(".shortlist li","mouseenter mouseleave",function(E){var D=$(this);var C=$(".fm_short_tips");var F=D.position();clearTimeout(x);if(E.type=="mouseenter"){x=setTimeout(function(){C.css({left:F.left+55,top:F.top+D.height()}).removeClass("hide").html($(E.currentTarget).find(".hidetips").html())},250)}else{C.addClass("hide")}});$(".fm-side-inner").delegate(".detail-list li","click",function(G){var C,F,D,E;if(!$(G.target).is(".creator")){C=$(this);F={id:C.data("cid"),name:C.data("name"),cover:replace_cate(C.find("img").attr("src"),"small")};$(window).trigger("channel:switch",[F]);D=C.parent("ul");if(D.length){_gaq&&_gaq.push(["_trackEvent","Channel","Play In "+D.data("cate"),F.name])}}}).delegate(".shortlist-title, .longlist-title, .cover-wrap","click",function(){var C=$(this).parents("li"),E=C.data("name"),F=C.data("intro"),G=C.data("cover"),H=C.data("cid"),D=$(this).parents("ul");cate=D.data("cate"),data={id:H,name:E,intro:F,cover:replace_cate(C.find("img").attr("src"),"small")};$(window).trigger("channel:switch",[data]);if(D.length){_gaq&&_gaq.push(["_trackEvent","Channel","Play In "+cate,data.name])}});$("#ss-imgs img, #ss-intros h3").click(function(){var C=$(this).data("i"),E=$("#ss-intro-"+C),D={id:E.data("cid"),name:E.find("h3 span").text(),intro:E.find("p").text(),cover:replace_cate($("#ss-img-"+C).attr("src"),"small")};$(window).trigger("channel:switch",[D]);_gaq&&_gaq.push(["_trackEvent","Channel","Play In PromotionArea",D.name])});$("#fm-side-main").delegate(".fm-show-off","mouseenter",function(C){$(this).addClass("hover")}).delegate(".fm-show-off","mouseleave",function(C){$(this).removeClass("hover")});$(".fm-side-inner").scrollTop(0);$.event.trigger("RESIZE_SCROLLBAR");var l,f="0";var b=function(D,C){$("#ss-imgs img, .intro .ss-intro").css("z-index","1").hide();$("#ss-img-"+f+",#ss-intro-"+f).css("z-index","2").show();$("#ss-img-"+D+",#ss-intro-"+D).css("z-index","3").fadeIn(1000);$(".show-pagenav li").removeClass("on").eq(D).addClass("on");f=D;if(!C){v("ChannelShow","Render",$("#ss-intro-"+D).data("cid"))}};b(f,true);var k=function(){if(!ss_number){return}if(l){clearInterval(l)}l=setInterval(function(){var C=parseInt(f,10);C=C==ss_number-1?0:C+1;b(C)},4000)};$(".fm-show-off").hover(function(){if(l){clearInterval(l)}},k);$(".show-pagenav").delegate("li","mouseenter click",function(){var C=$(this).data("i");b(C)});function j(){var D=$("#fm-sidebar-ctrl");var C=D.data("opt_title");D.data("opt_title",D.attr("title"));D.attr("title",C)}var B=function(C){if(C=="close"){$.event.trigger("HIDE_SCROLLBAR");$("#fm-sidebar").animate({width:26},500,function(){$("#fm-sidebar").toggleClass("open");j()})}else{if(C=="open"){$.event.trigger("SHOW_SCROLLBAR");$("#fm-sidebar").animate({width:674},500,function(){$("#fm-sidebar").toggleClass("open");j()})}else{if(C=="init"){$.event.trigger("SHOW_SCROLLBAR");$("#fm-sidebar").animate({width:674},500)}}}if(!$("#fm-sidebar").hasClass("open")){k();$("#fm-channel-list").css("overflow-y","hidden");unbindPlayerListMW();$.event.trigger("START_SCROLLSTATUS")}else{if(l){clearInterval(l)}$("#fm-channel-list").css("overflow-y","auto");$.event.trigger("STOP_SCROLLSTATUS");bindPlayerListMW()}};if($("#fm-sidebar").hasClass("open")){B("init")}$(".fm-sidectrl").click(function(C){if($("#fm-sidebar").hasClass("open")){_gaq&&_gaq.push(["_trackEvent","Button","clicked","Hide Explore Panel"]);B("close")}else{_gaq&&_gaq.push(["_trackEvent","Button","clicked","Show Explore Panel"]);B("open")}});if(!$("#fm-sidebar").hasClass("open")){if(!$("#recent_chls .channel").length&&$("#fm-channel-list").attr("type")!="fav_func"){setTimeout(function(){B("open")},300)}else{if(!get_cookie("openExpPan")){$("#explore_tip").fadeIn(function(){setTimeout(function(){$("#explore_tip").fadeOut("fast")},3000)})}}}window.check_playing_icon=function(){$("#fm-sidebar").find(".ss-intro h3 em, .ch_item, #channel-detail-head em, .shortlist-title em").each(function(){var C=$(this);if(C.data("cid")+""===now_play_channel){if(C.hasClass("playing")){return}C.removeClass("hover").addClass("playing");if(C.hasClass("ch_item")){C.append($('<div class="cover-playing"></div>'));if(C.hasClass("detail-list-ch")){C.find(".cover-wrap").append($('<div class="cover-mask-playing"></div>'))}}}else{if(!C.hasClass("playing")){return}if(C.hasClass("ch_item")){C.find(".cover-playing").remove();if(C.hasClass("detail-list-ch")){C.find(".cover-mask-playing").remove()}}C.removeClass("playing")}})};window.now_play_channel=null;$(window).bind("radio:start",function(C,D){window.now_play_channel=D.channel;check_playing_icon()});var p=20;var y=function(L,K,C,D){m=C;D=D?","+JSON.stringify(D):"";var H="",J=parseInt(C/p,10)+1,F="...",I=10;var E=function(M,N){return"<a href='javascript:;' onclick='"+L+"("+M+D+")'>"+N+"</a>"};var G=function(O,M){var N="";while(O<=M){N+=(O-1)*p==C?'<span class="now">'+O+"</span>":E((O-1)*p,O);O++}return N};H+=J==1?"<span>&lt;</span>":E((J-2)*p,"&lt;");if(J<I){if(K<=I){H+=G(1,K)}else{H+=G(1,I)+F}}else{if(K>J+4){H+=G(1,2)+F+G(J-4,J+4)+F}else{H+=G(1,2)+F+G(J-4,K)}}H+=J>=K?"<span>&gt;</span>":E(J*p,"&gt;");return H};var o=function(G,D,I,F,H,C,E){H=H||0;E=E||{};$.getJSON(G,{start:H,limit:p},function(N){var P=$.template(null,$("#"+I).html()),K=$.tmpl(P,$.extend({channels:N.data.channels},C)),L=y(F,N.data.total,H,C),J=$.template(null,$("#"+D).html()),O=$.extend({items:K[0].outerHTML,page_links:L},C);if(E.onNoChannels){if(!N.data.channels.length){E.onNoChannels()}}if(E.onChannels){if(N.data.channels.length){E.onChannels()}}var M=$("#fm-side-home");M.html('<em class="backicon"></em><b class="sectitle">返回首页</b>').addClass("subtitle");h="home";$("#fm-side-main").hide();$("#fm-side-subcont").fadeOut(0).html($.tmpl(J,O)).removeClass("hide").fadeIn(e);$("#fm-sidebar, .fm-side-inner, #fm-side-main").css("zoom",1.1).css("zoom",1);check_playing_icon();if(u){$(".fm-side-inner").scrollTop(u);u=null}else{$(".fm-side-inner").scrollTop(0)}$.event.trigger("RESIZE_SCROLLBAR")})};window.render_channel_detail=function(D,C,E){$.getJSON(D,function(G){if(G.status==true){var H=$("#"+C).template();var F=$("#fm-side-home");h=E;if(E==="home"){F.html('<em class="backicon"></em><b class="sectitle">返回首页</b>').addClass("subtitle")}else{if((E)&&(E!="home")){F.html('<em class="backicon"></em><b class="sectitle">返回列表</b>').addClass("subtitle")}}$("#fm-side-main").hide();$("#fm-side-subcont").fadeOut(0).html($.tmpl(H,G.data)).removeClass("hide").fadeIn(e);$("#fm-sidebar, .fm-side-inner, #fm-side-main").css("zoom",1.1).css("zoom",1);$(".fm-side-inner").scrollTop(0);check_playing_icon();$.event.trigger("RESIZE_SCROLLBAR")}else{alert(G.msg)}})};var i=$.template(null,$("#side-short-item-template").html()),t=$.tmpl(i,{channels:window.hot_channels_json,cate:"hotlist"}),s=$.tmpl(i,{channels:window.fast_channels_json,cate:"rising"});$("#hot_songs_sec").html(t);$("#fast_songs_sec").html(s);if(com_channels_json.length){var d=$.tmpl(i,{channels:window.com_channels_json});$("#com_songs_sec").html(d)}window.side_show_hot=function(C){o("/j/explore/hot_channels","side-hot-template","side-long-item-template","side_show_hot",C,{cate:"hotlist_more"})};window.side_show_fast=function(C){o("/j/explore/up_trending_channels","side-fast-template","side-long-item-template","side_show_fast",C,{cate:"rising_more"})};window.side_show_search=function(D,C){C=C||{};C.cate="search_result";u=null;o("/j/explore/search?query="+encodeURIComponent(C.keyword),"side-search-template","side-long-item-template","side_show_search",D,C,{onChannels:function(){_gaq&&_gaq.push(["_trackEvent","ChannelSearch","has result",C.keyword])},onNoChannels:function(){_gaq&&_gaq.push(["_trackEvent","ChannelSearch","no result",C.keyword])}})};window.side_show_genres=function(D,C){C=C||{};C.cate="genre_result";o("/j/explore/search?query=genre_id:"+C.gid,"side-genres-template","side-long-item-template","side_show_genres",D,C)};$("#fm-sidebar").delegate(".fm-side-taglist li","click",function(F){var G=$(this),E=G.data("genre_id"),D=G.text();_gaq&&_gaq.push(["_trackEvent","Genre","Click",D]);var C={gid:E};A=C;side_show_genres(0,C)}).delegate("a.creator","click",function(C){_gaq&&_gaq.push(["_trackEvent","兆赫制作人","Click",$(this).text()]);return true}).delegate(".side-show-detail","click",function(){var E=$(this),C=E.data("cid"),F=E.data("from"),D=E.closest("#com_songs_sec").length;if(!F){F="home"}if(F!="home"){u=$(".fm-side-inner").scrollTop()}render_channel_detail("/j/explore/channel_detail?channel_id="+C+"&is_com="+D,"side-channel-detail-template",F)});$("#fm-side-home").click(function(){var D=$(this);if(!D.hasClass("subtitle")){return false}if(h==="home"){D.html("全部兆赫").removeClass("subtitle");$("#fm-side-subcont").addClass("hide");$("#fm-side-main").fadeOut(0).removeClass("hide").fadeIn(e);$("#fm-side-subcont").html("");$(".fm-side-inner").css("zoom",1.1).css("zoom",1);$("#fm-sidebar").css("zoom",1.1).css("zoom",1);$("#fm-side-main").css("zoom",1.1).css("zoom",1);$.event.trigger("RESIZE_SCROLLBAR")}if(h==="hotlist_more"){o("/j/explore/hot_channels","side-hot-template","side-long-item-template","side_show_hot",m,{cate:"hotlist_more"})}if(h==="rising_more"){o("/j/explore/up_trending_channels","side-fast-template","side-long-item-template","side_show_fast",m,{cate:"rising_more"})}if(h==="genre_result"){var C=A||{};C.cate="genre_result";o("/j/explore/search?query=genre_id:"+C.gid,"side-genres-template","side-long-item-template","side_show_genres",m,C)}if(h==="search_result"){var C=A||{};C.cate="search_result";o("/j/explore/search?query="+encodeURIComponent(C.keyword),"side-search-template","side-long-item-template","side_show_search",m,C)}});var g=[],q=[],c=null;$("#fm-side-subcont").delegate("#show-author-channels","click",function(C){$("#arrow").attr("src","/pics/fm/open_channel/arrow-up.png");$("#show-author-channels").attr("id","cancel-shown");$("#author-meta-content").appendTo("#author-meta-wrapper").show()}).delegate("#cancel-shown","click",function(C){$("#author-meta-content").slideUp("fast",function(){$(this).hide()});$("#cancel-shown").attr("id","show-author-channels");$("#arrow").attr("src","/pics/fm/open_channel/arrow-down.png")}).delegate("#share-channel-btn","click",function(H){var I=$(this),E=I.data("cid"),C=I.data("name"),J=I.data("banner"),K=I.data("intro");chl_url=window.consts.FM_URL+"?cid="+E;var F={name:" "+C,href:chl_url,image:J,desc:K,apikey:"079055d6a0d5ddf816b10183e28199e8",target_type:"rec",target_action:0,object_kind:window.consts.CHL_REC_KIND,object_id:E,action_props:JSON.stringify({channel_url:chl_url,channel_title:C+" - 豆瓣FM"})};var D="http://shuo.douban.com/!service/share?"+$.param(F);var G=window.open(D,"fm",["toolbar=0,status=0,resizable=1,width=500,height=360,left=",(screen.width-500)/2,",top=",(screen.height-360)/2].join(""));if(G){G.focus()}}).delegate(".fav-channel-btn","click",function(C){$el=$(this);var D=$el.data("cid");$.getJSON("/j/explore/fav_channel?cid="+D,function(E){if(E.status){$el.text("取消收藏");$el.removeClass("fav-channel-btn").addClass("unfav-channel-btn");$(".channel_list .channel[cid="+D+"] .fav").text("取消收藏").removeClass("fav").addClass("unfav");if($(".channel_list .channel[cid="+D+"]").hasClass("selected")){$(".fav_fast[cid="+D+"]").remove()}if(!get_cookie("fav_infoed")){$info=$("<div class='fav_infoed'>你已经将「"+$("#channel-detail-head").text()+"」加入收藏，此功能正在试用期，欢迎使用。</div>");$info.appendTo("body").fadeOut(15000,function(){$info.remove()});set_cookie({fav_infoed:1},365,"douban.fm")}}else{alert(E.msg)}})}).delegate(".unfav-channel-btn","click",function(C){$el=$(this);var D=$el.data("cid");$.getJSON("/j/explore/unfav_channel?cid="+D,function(E){if(E.status){$el.text("收	藏");$el.removeClass("unfav-channel-btn").addClass("fav-channel-btn");$(".channel_list .channel[cid="+D+"] .unfav").text("收藏").removeClass("unfav").addClass("fav");if($(".channel_list .channel[cid="+D+"]").hasClass("selected")){$(".channel_list .channel[cid="+D+"]").before("<span cid='"+D+"' class='fav_fast'>收藏</span>")}}else{alert(E.msg)}})}).delegate(".add-tags-tip-wrapper","mouseenter",function(C){$("#add-tag-tip").show();$("#tag-plus").css("background","url(/pics/fm/home/plus2.png) no-repeat")}).delegate(".add-tags-tip-wrapper","mouseleave",function(C){$("#add-tag-tip").hide();$("#tag-plus").css("background","url(/pics/fm/home/plus.png) no-repeat")}).delegate(".add-tags-tip-wrapper","click",function(C){if(!globalConfig.uid){$(".lnk-login").trigger("click")}else{$("#channel-tags").hide();var D=$(this).data("cid");$(".my-hot-channel-tags").remove();$.get("/j/explore/get_my_tags?channel_id="+D,function(H){if(H.status==true){var G=$("#add-tags-input");G.focus();var E=H.data.user_hot_channel_tags;if(E.length==0){$("#my-tags-list").append('<span class="my-hot-channel-tags meta">你还没有添加过标签呢</span>')}else{var K=$("#my-hot-tags").template();$.tmpl(K,H.data).appendTo("#my-tags-list")}var I="",J=H.data.my_channel_tags;for(var F in J){I+=" "+J[F];G.val(I);G.trigger("keyup")}G.trigger("keyup")}});$("#adding-tags-wrapper").show();$("#added-tags").hide();$("#adding-tags").show()}}).delegate("#cancel-tag-adding, #close-tag-tip","click",function(C){clearTimeout(c);$("#tags-tip li").remove();$("#adding-tags-wrapper").hide();$("#tags-tip").fadeOut("fast",function(){$(this).hide()});$("#channel-tags").show();$("#add-tags-input").val("")}).delegate("#add-tags-input","keyup",function(J){var I=$(this).val().toLowerCase().split(" ");var C=$(".common-tags").map(function(){return $(this).text().toLowerCase()}).get();var D=$(".my-hot-channel-tags").map(function(){return $(this).text().toLowerCase()}).get();g=[];g=$(".tags-border").map(function(){return $(this).text().toLowerCase()}).get();var K=C.concat(D);for(var G in I){var E=I[G];if($.inArray(E,K)!=-1){var F=$.inArray(E,C);if(F==-1){F=$.inArray(E,D);$("#m"+F).addClass("tags-border");$("#m"+F).removeClass("tags").addClass("unclick-tag my-hot-channel-tags")}else{$("#c"+F).addClass("tags-border");$("#c"+F).removeClass("tags").addClass("unclick-tag");F=$.inArray(E,D);if(F!=-1){$("#m"+F).addClass("tags-border");$("#m"+F).removeClass("tags").addClass("unclick-tag my-hot-channel-tags")}}if($.inArray(E,g)==-1){g.push(E)}}}for(G=0;G<g.length;G++){q[G]=g[G]}for(var G in q){if($.inArray(q[G],I)==-1){var E=q[G];var F=$.inArray(E,C);if(F==-1){F=$.inArray(E,D);$("#m"+F).removeClass("tags-border");$("#m"+F).removeClass("unclick-tag").addClass("tags")}else{$("#c"+F).removeClass("tags-border");$("#c"+F).removeClass("unclick-tag").addClass("tags");F=$.inArray(E,D);if(F!=-1){$("#m"+F).removeClass("tags-border");$("#m"+F).removeClass("unclick-tag").addClass("tags")}}var H=$.inArray(E,g);if(H>-1){g.splice(H,1)}}}}).delegate(".tags","click",function(G){var C=$(this).text(),E=$("#add-tags-input"),D=E.val(),F=D+" "+C;E.focus();E.val(F);E.trigger("keyup")}).delegate(".unclick-tag","click",function(I){var D=$(this),F=D.text().toLowerCase(),G=$("#add-tags-input");tags_input=G.val().split(" ");var H=[];for(var E in tags_input){H.push(tags_input[E].toLowerCase())}var E=$.inArray(F,H);if(E!=-1){tags_input.splice(E,1)}var C=tags_input.join(" ");G.focus();G.val(C);G.trigger("keyup")}).delegate(".tags-data","hover",function(D){var C=$(this).text(),E=$(this).attr("id");if(D.type==="mouseenter"){if($.inArray(C,g)==-1){$("#"+E).addClass("tags-border")}}else{if($.inArray(C,g)==-1){$("#"+E).removeClass("tags-border")}}}).delegate("#submit-tags","click",function(D){var C=$("#add-tags-input").val(),E=$(this).data("cid");$.post_withck("/j/explore/add_channel_tags",{tags:C,cid:E},function(F){if(F){F=$.parseJSON(F);if(F.status==true){$("#adding-tags").hide();$("#added-tags").show();var G={tags:$.trim(C).split(" ")};if(G.tags[0]!=""){var H=$("#adding-success-tip").template();$.tmpl(H,G).appendTo("#added-tags")}$("#tags-tip").show();c=setTimeout(function(){$("#tags-tip li").remove();$("#adding-tags-wrapper").hide();$("#tags-tip").fadeOut("fast",function(){$(this).hide()});$("#channel-tags").show()},4000)}else{alert(F.msg)}}})}).delegate("#board-post-input","keyup focus",function(){var F=250,C=F-10,D=$(this).val(),E=D.length;$("#submit-post").show();if(E>=C&&E<=F){var H=F-E;$("#fake-button").hide();$("#input-tip").show().text("你还可以输入 "+H+" 个字")}else{if(E<C){$("#fake-button").hide();$("#input-tip").hide()}if(E>F){var G=E-F;$("#submit-post").hide();$("#fake-button").show();$("#input-tip").show().text("－ "+G)}}}).delegate("#submit-post","click",function(D){if(!globalConfig.uid){r=$(".lnk-login").trigger("click")}else{var E=$("#board-post-input").val(),C=$(this).data("cid");if(E.length==0){alert("内容别为空呀")}else{$.post_withck("/j/explore/add_board_post",{text:E,channel_id:C},function(G){if(G){G=$.parseJSON(G);if(G.status==true){var F=$("#channel-board-post").template();$.tmpl(F,G.data).prependTo("#board");$("#board-post-input").val("")}else{alert(G.msg)}}})}}}).delegate("#board li","mouseenter",function(F){var D=globalConfig.uid,E=$(this);author=E.data("author");if(D==author){var C=E.data("pid");$("#d"+C).show()}}).delegate("#board li","mouseleave",function(F){var D=globalConfig.uid,E=$(this);author=E.data("author");if(D==author){var C=E.data("pid");$("#d"+C).hide()}}).delegate(".delete","click",function(F){var E=confirm("确认要删除这条留言吗？");if(E==true){var C=$(this).data("pid"),D=$(this).data("author");$.post_withck("/j/explore/delete_board_post",{pid:C,author_id:D},function(G){if(G){G=$.parseJSON(G);if(G.status==true){$("#"+C).fadeOut(500,function(){$(this).remove()})}else{alert(G.msg)}}})}}).delegate("#channel-detail-head","click",function(){var C=$(this).text(),E=$(this).data("intro"),F=$(this).data("cover"),G=$(this).data("cid"),D={id:G,name:C,intro:E,cover:F};$(window).trigger("channel:switch",[D]);_gaq&&_gaq.push(["_trackEvent","Channel","Play In channel detail-page",D.name])}).delegate(".channel-btn, .small-channel-btn","mouseenter mouseleave",function(C){if(C.type=="mouseenter"){$(this).addClass("btn-hover")}else{$(this).removeClass("btn-hover")}});$("#explore_tip").bind("SHOW_SCROLLBAR",function(){set_cookie({openExpPan:"Y"},365,"douban.fm");$(this).fadeOut(function(){$(this).remove()})});var v=(function(){var C={};return function(F,H,G){var E=C[G],D=new Date();if(!E||(D.getMinutes()-E.getMinutes())>=30){_gaq&&_gaq.push(["_trackEvent",F,H,G+""]);C[G]=D}}})()})();;
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+Do.add('fm-bannerad', {path: 'http://img3.douban.com/js/fm/packed_fm_bannerad7421679043.js', type:'js'});
+Do.add('fm-rotate-ad', {path: 'http://img3.douban.com/js/fm/packed_fm_rotate_ad5809531445.js', type:'js',
+    requires: ['fm-bannerad']});
+var bgad_dict = {'108': {'pic': 'http://battlepit.douban.com/ad/ford/', 'divs': []}, '109': {'pic': 'http://img3.douban.com/rda/pic10474.jpg', 'divs': []}, '106': {'pic': 'http://img3.douban.com/rda/pic10459.jpg', 'divs': []}, '107': {'pic': 'http://img3.douban.com/rda/pic10473.jpg', 'divs': []}};
+Do.add('fm-bgad', {path: 'http://img3.douban.com/js/fm/packed_fm_bgad8156318799.js', type:'js'});
+Do.add('fm-player', {path: 'http://img3.douban.com/js/fm/packed_fm_player9612114486.js', type:'js',
+    requires: ['swfobject', 'fm-bgad', 'fm-rotate-ad', 'init_channel_list']});
+
+Do.ready('fm-bannerad', 'fm-bgad', function() {
+    initBannerAd({ad_source:"#fm-banner-ads",alt_slot:"#ft-ads-slot",shift_cb:function(a){if(a==="hide"){$("#fm-section3").css("padding-bottom",0);return}$("#fm-section3").css("padding-bottom",a==="banner"?"145px":0)}});var inter_ad=document.getElementById("inter-ad"),ad_click_area=document.getElementById("ad-click-area"),currChannel=$(".ch-list .selected").attr("cid");var getAnimBgAdUrl=function(a){if(bgad.has_channel_ad(a)){return bgad_dict[a]["pic"]}else{return""}};var turnOnAnimBgAd=function(a){if(a.indexOf("http://battlepit.douban.com/ad/")!=-1){inter_ad.contentWindow.location=a;$(inter_ad).width($(window).width());$(inter_ad).show();$(ad_click_area).show()}else{turnOffAnimBgAd()}};var turnOffAnimBgAd=function(){$(inter_ad).hide();$(ad_click_area).hide()};$(".channel_list .channel").click(function(){var a=getAnimBgAdUrl($(this).attr("cid"));if(a!=""){turnOnAnimBgAd(a)}else{turnOffAnimBgAd()}});$("#ad-click-area").click(function(){$(this).hide();$(inter_ad).width($(window).width()+1)});turnOnAnimBgAd(getAnimBgAdUrl(currChannel));
+});
+
+
+Do.add("jsuggest", {
+           path: "http://img3.douban.com/js/fm/packed_search_sugg1570309421.js",
+           type: "js",
+           require: ['jquery']
+});
+Do.add('init_channel_list', {
+    path: "http://img3.douban.com/js/fm/packed_init_channel_list59256748.js",
+    type: "js",
+    requires: ['post_withck', 'helpers', 'jsuggest']
+});
+Do.add('dialog-css', {path: 'http://img3.douban.com/css/ui/packed_dialog9259912804.css', type:'css'});
+Do.add('dialog', {path: 'http://img3.douban.com/js/ui/packed_dialog3992230463.js', type:'js', requires: ['dialog-css']});
+Do.add('fmshare', {path: "http://img3.douban.com/js/fm/packed_fm_share764078197.js", type:'js'});
+Do.add('mousewheel', {path: "http://img3.douban.com/js/lib/packed_jquery.mousewheel3380005785.js", type:'js'});
+Do.global('dialog', 'fm-player', 'http://img3.douban.com/js/lib/packed_store.min7770040937.js');
+
+var globalConfig = {
+  doubanHost: 'http://www.douban.com',
+  pageHost: 'http://douban.fm',
+  sig: '96c79c2d5a'
+};
+
+Do.ready("mousewheel",function(){var k=(typeof FM==="undefined")?{}:FM,g="<em></em>",e=$("#fm-channel-list"),l=$("#fm-section3"),m=$("#fm-section, #fm-section2, #fm-bg"),i=$("#fm-bg"),d=i.height(),n=i[0].offsetTop,j=[],f,b=$.browser.mozilla&&$.browser.version,a=navigator.userAgent.indexOf("Chrome")>0,c=l.offset().top;var h=function(r){var o=l.offset().top,p=n+d,q=o-p;if(q<=0){m.css("marginTop",q+"px")}else{m.css("marginTop",0)}$(".fm-side-inner").height($("html").height())};e.bind("scroll",h);$(window).bind("resize",h);window.bindPlayerListMW=function(){$("html,#fm-sidebar, #fm-section, #fm-channel-list,#fm-section2,#fm-section3").bind("mousewheel",function(u,v,q,p){var s=u.target,r=e.scrollTop(),o;if($.browser.webkit){o=Math.abs(p)*100}else{if($.browser.mozilla){if(b>=3.5){o=Math.abs(p)*3}else{o=Math.abs(p)*30}}else{o=Math.abs(p)*10}}e.scrollTop(r-o*p);return false})};window.unbindPlayerListMW=function(){$("html,#fm-sidebar, #fm-section, #fm-channel-list,#fm-section2,#fm-section3").unbind("mousewheel")};bindPlayerListMW();$(document).keydown(function(s){var o={32:"pause",70:"love",68:"ban",83:"skip"};var p=s.target.tagName.toLowerCase();var r=(p==="input"||p==="textarea");if(!r&&!s.altKey&&!s.ctrlKey&&!s.metaKey){var q=o[s.keyCode];if(q){s.preventDefault();DBR.act(q)}}return true})});
+
+// 登录注册链接点击事件
+Do.ready("http://img3.douban.com/js/fm/packed_init_login_register1825529816.js");
+
+
+Do.ready("init_channel_list");
+Do.ready("helpers", function () {
+    initAutoHideMenu("#user_name", ".menu", {
+        root: $("#user_info .profile")
+    });
+});
+
+Do('fmshare', function(){
+    FM.initSongShare($('#fm-sharing'), false);
+});
+
+Do.ready(function () {
+    $("#fm-header").delegate("#user_play_record a",
+        "click",
+        function (e) {
+            _gaq && _gaq.push(['_trackEvent', 'Play Record',
+                               'click', $(this).data('label')]);
+            return true;
+    }).delegate(".profile .menu .upgrade", "click", function(e) {
+        _gaq && _gaq.push(['_trackEvent', 'Upgrade', 'click']);
+        return true;
+    });
+});
+
+Do.ready("template", "helpers", function () {
+    $(window).bind(window.consts.LOGIN_EVENT, function (e, userInfo) {
+        window.flags.is_user_login = true;
+
+        var USER_INFO_TMPL = $.template(null, $("#tmpl_user_info").html());
+
+        $("#fm-header").find("#anony_nav").remove()
+        .end()
+        .prepend($.tmpl(USER_INFO_TMPL, userInfo));
+        window.user_record.init(userInfo.is_pro);
+
+        initAutoHideMenu("#user_name", ".menu", {
+            root: $("#user_info .profile")
+        });
+
+        // pro用户去广告 & 加pro icon
+        if(userInfo.is_pro) {
+            //TODO: is this method alive?
+            disableBannerAd();
+            $('<i class="pro_icon"></i>').insertBefore($('#user_name').find('.arrow'));
+            $('#fm-download').show().addClass("enabled");
+        } else {
+            var display;
+            if ($.browser.msie  && parseInt($.browser.version, 10) <= 7) {
+                display = 'inline';
+            } else {
+                display = 'inline-block';
+            }
+            $('div.pro-promo').removeClass('hidden').css('display', display);
+        }
+
+        DBR.act("login", userInfo.id, userInfo.is_pro);
+        globalConfig.uid = userInfo.id;
+    });
+});
+
+Do.ready(function() {
+    window.show_login_for_usr_from_subject=function(){var b=function(){$.get("/j/new_captcha",function(c){$('form.pop_win_login_form input[name="captcha_id"]').val(c);var d="/misc/captcha?size=m&id="+c;$("form.pop_win_login_form img.captcha").attr("src",d)},"json")};$.fn.loginFormCheck=function(){$("input.pop_email").blur(function(){var d=/\w+([\-+.]\w+)*@\w+([\-.]\w+)*\.\w+([\-.]\w+)*/,c=$.trim($(this).val());if(c!==""&&!d.test(c)){$(this).siblings("span.error").show()}}).focus(function(){$("span.error").hide()});$("form.pop_win_login_form").submit(function(){if($.trim($("input.pop_email").val())===""){$("div.spec span.error").show()}if($("span.error:visible").length){return false}})};$("body").append($('<div class="overlay"></div>'));$("div.overlay").css({width:$(document).width()+32,height:$(document).height(),display:"block"});var a=location.href.split("context=")[1];$.get("/j/misc/login_form",{start_radio_from_subject:a,redir:"/?context="+a},function(d){var e=dui.Dialog({width:555,title:"登录",iframe:1,content:d}).open(),c=e.node;b();c.find("form.pop_win_login_form").prepend(c.find(".login_notice_from_subject"));c.find(".hd h3").replaceWith(c.find(".bd h3"));c.find("h3 a, form a").attr("target","_blank");c.find("form").loginFormCheck();c.find("form.pop_win_login_form img.captcha").click(function(){b()});e.update();$(".dui-dialog-close").attr("href","${DOUBAN_FM}").unbind("click").click(function(){location.href="/"})});$(window).bind(window.consts.LOGIN_EVENT,function(){location.reload()});return false};function open_win(a,h,b,j){var e=$("body").offset(),i=$(window),d=parseInt(e.left+((i.width()-b)/2),10),g=parseInt(e.top+((i.height()-j)/2.5),10),c=("toolbar=0,status=0,resizable=1,width="+b+",height="+j+",left="+d+",top="+g),f=window.open(a,h,c);if(f){f.focus();if(typeof __pop_win!=="undefined"){window.pop_win.close()}}else{location.href=a}}$("#login .sina").click(function(c){c.preventDefault();var a=$(this),b=a.data("loading");if(typeof b==="undefined"||!b){if(!window.auth_url){a.data("loading",true);$.ajax({url:"/partner/sina/login",success:function(d){a.data("loading",false);if(d==="logged in"){location.reload(true)}else{if(d==="urlerror"){alert("网络连接超时了, 请稍后重试 :(")}else{window.auth_url=d}}},async:false})}if(window.auth_url){open_win(window.auth_url,"用户授权",600,400)}}return false});$("#login .msn").click(function(){open_win($(this).attr("href"),"用户授权",465,375);return false});
+});
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type='tmpl' id='tmpl_person_tags'>
+<span class="tags" id="{{= id}}">{{= title }}</span>
+</script>
+
+<script src="http://img3.douban.com/js/core/do/packed__init_5832834905.js" data-cfg-corelib="http://img3.douban.com/js/packed_jquery.min6301986802.js"></script>
+
+    <script>var _check_hijack = function () {
+            var _sig = "QFAGUWRj", _login = false, bid = get_cookie('bid');
+            if (location.protocol != "file:" && (typeof(bid) != "string" && _login || typeof(bid) == "string" && bid.substring(0,8) != _sig)) {
+                location.href+=(/\?/.test(location.href)?"&":"?") + "_r=" + Math.random().toString(16).substring(2);
+            }};
+            if (typeof(Do) != 'undefined') Do(_check_hijack);
+            else if (typeof(get_cookie) != 'undefined') _check_hijack();
+            </script>
+<%@include file="include/Footer.jsp"%>
+
+
+
+
+
+
+
+

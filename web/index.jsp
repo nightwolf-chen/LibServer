@@ -3,10 +3,463 @@
     Created on : 2013-3-17, 14:19:13
     Author     : nightwolf
 --%>
-
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Database.DatabaseManager"%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.BufferedReader"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="include/Header.jsp" %>
+
+<script type="text/javascript" src="dwr/engine.js"></script>
+<script type="text/javascript" src="dwr/util.js"></script>
+<script type="text/javascript" src="dwr/interface/DataUpdator.js"></script>
+<script type="text/javascript" src="dwr/interface/DatabaseOperator.js"></script>
+<script type="text/javascript" src="dwr/interface/FriendsOperator.js"></script>
+<script type="text/javascript" src="dwr/interface/SeatsOperator.js"></script>
+<%@include file="Login.jsp"%>
+
+<script type="text/javascript">
+    function showFriends(friends)
+    {
+        //清楚上一个状态的好友
+        var parentNode = document.getElementById("friend");
+        while (parentNode.firstChild) {
+            var oldNode = parentNode.removeChild(parentNode.firstChild);
+            oldNode = null;
+        }
+
+        var count = 0;
+        for (var i in friends)
+        {
+            var user = document.createElement("div");
+            //user.class="span1";
+            user.setAttribute("class", "span1");
+            user.setAttribute("username", friends[count])
+
+            var pic = document.createElement("img");
+            pic.src = "assets/img/boy.png";
+
+            parentNode.appendChild(user);
+            user.appendChild(pic);
+            count++;
+        }
+        if (count > 0)
+        {
+            var more = document.createElement("a");
+            more.setAttribute("href", "#");
+            more.innerText = "more..."
+            parentNode.appendChild(more);
+        }
+    }
+    function showSeats(seats)
+    {
+        //清楚上一个状态的收藏座位
+        var parentNode = document.getElementById("seats");
+        while (parentNode.firstChild) {
+            var oldNode = parentNode.removeChild(parentNode.firstChild);
+            oldNode = null;
+        }
+
+        var count = 0;
+        for (var i in seats)
+        {
+            var user = document.createElement("div");
+            //user.class="span1";
+            user.setAttribute("class", "span1");
+            user.setAttribute("seat", seats[count])
+
+            var pic = document.createElement("img");
+            pic.src = "assets/img/boy.png";
+
+            parentNode.appendChild(user);
+            user.appendChild(pic);
+            count++;
+        }
+        if (count > 0)
+        {
+            var more = document.createElement("a");
+            more.setAttribute("href", "#");
+            more.innerText = "more..."
+            parentNode.appendChild(more);
+        }
+    }
+    function refreshFriendsAndSeats()
+    {
+        var username =<%=session.getAttribute("username")%>;
+        //alert(username)
+        if (username === null)
+        {
+            //alert("asdfsdferyreer")
+            document.getElementById("friend").innerText = "请先登录";
+            document.getElementById("seats").innerText = "请先登录";
+        }
+        else
+        {
+            FriendsOperator.getFriends(username, showFriends);
+            SeatsOperator.getSeats(username, showSeats);
+        }
+    }
+
+    var curData;
+    var seatname
+    function isFriend(fs)
+    {
+        var flag = 1;
+        //console.log("dfg:" + fs[0])
+        var i = 0
+        for (var per in fs)
+        {
+            //console.log(curData[seatname] + ":" + fs[i])
+            if (fs[i] === curData[seatname])
+            {
+                flag = 0;
+                break;
+            }
+            i++;
+        }
+
+        var username =<%=session.getAttribute("username")%>;
+        //console.log("dfgdfgdfgertert" + username + ":" + curData[seatname]);
+
+        if (username == curData[seatname])
+            flag = 0;
+
+        if (flag === 1)
+            document.getElementById("addFriend").disabled = false;
+        else
+            document.getElementById("addFriend").disabled = true;
+    }
+
+    function isSeat(ss)
+    {
+        //alert("asdfserfwerwerwerwer")
+        var flag = 1;
+        console.log("dfg11:" + ss[0])
+        var i = 0
+        for (var per in ss)
+        {
+            console.log(seatname + ":" + ss[i])
+            if (ss[i] === seatname)
+            {
+                flag = 0;
+                break;
+            }
+            i++;
+        }
+        if (flag === 1)
+            document.getElementById("addSeat").disabled = false;
+        else
+            document.getElementById("addSeat").disabled = true;
+
+    }
+
+
+    function updateModal(seatName)
+    {
+        //判断是否登录，登录时加好友和收藏的前提 by zerojetlag
+        var username =<%=session.getAttribute("username")%>;
+        seatname = seatName;
+        //alert("changeing");
+        document.getElementById("seatName").innerText = "该座位的编号为：" + seatName;
+        document.getElementById("currentSeat").value = seatName;
+        //console.log("运行到获取状态1111"+username)
+        if (curData[seatName] !== null)
+        {
+            document.getElementById("seatStu").innerText = "在座同学为：" + curData[seatName];
+            document.getElementById("currentStu").value = curData[seatName];
+
+            //登录的时候能添加好友 by zerojetlag
+            if (username === null)
+            {
+                document.getElementById("addFriend").disabled = true;
+                document.getElementById("addSeat").disabled = true;
+            }
+            else
+            {
+                //根据是否是朋友判断是否显示加好友的按钮
+                FriendsOperator.getFriends(username, isFriend);
+
+            }
+        }
+        else
+        {
+            document.getElementById("seatStu").innerText = "该座位暂时没有人。";
+
+            //没人的时候不能添加好友 by zerojetlag
+            document.getElementById("addFriend").disabled = true;
+            document.getElementById("addSeat").disabled = true;
+        }
+        if (username !== null)
+        {
+            SeatsOperator.getSeats(username, isSeat);
+        }
+
+    }
+
+    function addSeat()
+    {
+        var username =<%=session.getAttribute("username")%>;
+        var seat = document.getElementById("currentSeat").value;
+        console.log(username + "@" + seat)
+        SeatsOperator.addSeat(username + "@" + seat);
+        $('#myModal').modal('hide');
+    }
+
+    function  addFriend()
+    {
+        //alert("add");
+        var username =<%=session.getAttribute("username")%>;
+        var friend = document.getElementById("currentStu").value;
+        FriendsOperator.addFriend(username + "@" + friend);
+        $('#myModal').modal('hide');
+    }
+
+    function refreshPage(data)
+    {
+        //更新好友在线状态和收藏座位  by zerojetlag
+        refreshFriendsAndSeats();
+
+        for (var key in data)
+        {
+
+            if (data[key] === null) {
+
+                document.getElementById(key).style.visibility = "hidden";
+
+            } else {
+
+                document.getElementById(key).style.visibility = "visible";
+
+            }
+            curData = data;
+        }
+
+    }
+
+    function updateSeatNumber(emptySeatNumber){
+        document.getElementById("emptySeatNumber").innerText = emptySeatNumber ;
+    }
+    function update()
+    {
+        DataUpdator.getUsers(refreshPage);
+        DatabaseOperator.getEmptySeatNumber(updateSeatNumber) ;
+    }
+    var timerID = setInterval("update()", 2000);
+</script>
+
+<script>
+
+    $(document).ready(function() {
+    });
+    function hiden() {
+        $("#well").hide();//hide()函数,实现隐藏,括号里还可以带一个时间参数(毫秒)例如hide(2000)以2000毫秒的速度隐藏,还可以带slow,fast         
+    }
+    function slideToggle() {
+        $("#divObj").slideToggle(2000);//窗帘效果的切换,点一下收,点一下开,参数可以无,参数说明同上         
+    }
+    function show() {
+        $("#divObj").show();//显示,参数说明同上         
+    }
+    function toggle() {
+        $("#well").toggle(2000);//显示隐藏切换,参数可以无,参数说明同上         
+    }
+    function slide() {
+        $("#divObj").slideDown();//窗帘效果展开         
+    }
+    window.onload = hiden;
+</script>
+
+
+<div  class="container-fluid">
+
+    <div class="row-fluid"  onclick="toggle()"><a href="#">好友和收藏位置</a></div>
+
+    <div  id="well"class="row-fluid" style="display: none">
+
+        <div   class="well sidebar-nav">
+            <div class="accordion" id="accordion1">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                            好友
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse in">
+                        <div class="accordion-inner" id="friend">
+                            <!--
+                            <%
+                                for (int i = 0; i < 12; i++) {
+                            %>
+                            <div class="span1"><img  src="assets/img/boy.png" /> </div> 
+                            <%                                    }
+                            %>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                            收藏位置
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="accordion-body collapse in">
+                        <div class="accordion-inner" id="seats">
+                            <%
+                                for (int i = 0; i < 12; i++) {
+                            %>
+
+                            <div class="span1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><img  src="assets/img/boy.png" /> </div> 
+
+                            <%                                    }
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div> <!--end of row--->
+
+
+
+    <%
+        //统计座位数量
+        ResultSet rsSeat = DatabaseManager.select("select count(seatname) from seat");
+        rsSeat.next();
+        String seatsNumber = rsSeat.getString("count(seatname)");
+    %>
+    
+    <div class="row-fluid"> 
+        <div class="hero-unit">
+            <p class="navbar-text pull-right">
+                空座位数：<strong id="emptySeatNumber"></strong>
+            </p>
+            <p class="navbar-text pull-right">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+            <p class="navbar-text pull-right">
+                总座位数：<strong><%=seatsNumber%></strong>;
+            </p>
+            <ul class="nav nav-pills">
+                <li class="active">
+                    图书馆一楼
+                </li>
+                <li></li>
+                <li></li>
+            </ul>
+
+
+            <%
+                String filePath = application.getRealPath("/") + "files/location.txt";
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "utf8"));
+            %>
+
+            <div class="back" style="position:relative;background-image: url(assets/img/BG1.JPG);height: 1501px;width: 883px" >
+
+                <%
+                    String line = "";
+                    while ((line = br.readLine()) != null) {
+                        System.out.println(line);
+                        String[] seats = line.split(",");
+                        if (seats.length < 3) {
+                            continue;
+                        }
+                        String name = seats[0];
+                        String left = seats[1];
+                        String top = seats[2];
+                %>
+                <div id="p<%=name%>" data-toggle="modal" data-target="#myModal" onclick=" updateModal('<%=name%>')" rel="popover"  data-trigger="hover" data-content="图书馆一楼座位：<%=name%>。要收藏座位请单击" data-original-title="这里是" style="position:absolute;left:<%=left%>px ;top:<%=top%>px;"><img id="<%=name%>" class="img-rounded"  src="assets/img/boy.png" style="visibility: hidden" /> 
+                </div>
+
+                <script>
+    $(function()
+    {
+        $("#p<%=name%>").popover();
+    }
+    );
+
+                </script>
+                <%
+                    }
+                %>
+
+
+                <!-- Modal -->
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">你可以收藏座位，添加对方为好友</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>收藏座位以后就可以方便的查看位置是否已经有人。</p>
+                        <p>有了图书馆好基友就可以更加有效率地学学习了!</p>
+                        <p id="seatName"></p>
+                        <p id="seatStu"></p>
+                    </div>
+                    <div class="modal-footer">
+
+                        <input type="hidden" id="currentSeat">
+                        <input type="hidden" id="currentStu">
+
+                        <button class="btn btn-primary" id="addSeat" onclick="addSeat()" >收藏该座位</button>
+                        <button class="btn btn-primary" id="addFriend" onclick="addFriend()">将座位上的同学加为好友</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+<%
+        ResultSet rs1 = DatabaseManager.select("select * from notice order by time desc");
+        String notice = "";
+        if (rs1.next()) {
+            notice = rs1.getString("content");
+        }
+    %>
+
+    <div class="row-fluid">
+        <div class="span4">
+            <h2>公共信息发布平台</h2>
+            <p><%=notice%>
+            </p>
+            <p><a class="btn" href="bloglist.jsp">View details &raquo;</a></p>
+        </div><!--/span-->
+        <%
+            ResultSet rs2 = DatabaseManager.select("select * from post");
+            String post1 = "";
+            if (rs2.next()) {
+                post1 = rs2.getString("content");
+            }
+        %>
+
+        <div class="span4">
+            <h2>图书论坛</h2>
+            <p><%=post1%></p>
+            <p><a class="btn" href="bloglist.jsp">View details &raquo;</a></p>
+        </div><!--/span-->
+        <div class="span4">
+            <h2>好书推荐</h2>
+            <p>新书速递</p>
+            <p><a class="btn" href="bloglist.jsp">View details &raquo;</a></p>
+        </div><!--/span-->
+    </div><!--/row-->
+
+
+
+</div><!--/.fluid-container-->
 
 
 

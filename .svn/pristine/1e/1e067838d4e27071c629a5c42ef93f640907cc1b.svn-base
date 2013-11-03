@@ -1,0 +1,116 @@
+<%-- 
+    Document   : friend
+    Created on : 2013-4-24, 14:57:52
+    Author     : nightwolf
+--%>
+
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="Database.DatabaseManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="include/Header.jsp" %>
+
+<div class="container-fluid">
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#person" data-toggle="tab">个人信息</a></li>
+        <li class=""><a href="#friendList" data-toggle="tab">好友列表</a></li>
+        <li class=""><a href="#message" data-toggle="tab">消息记录</a></li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+        <!--个人信息-->
+        <div class="tab-pane fade" id="person">
+            <div class="row-fluid">
+
+            </div><!--end of row-fluid-->
+        </div>
+
+        <!--好友列表-->
+        <div class="tab-pane fade" id="friendList">
+            <div class="row-fluid">
+
+                <div class="span3">
+                    <div class="well">
+                        <ul class="nav nav-list">
+                            <li><img src="assets/img/boy.png"><h5 class='pull-right'>1234567890</h5></li>
+                            <li>&nbsp;</li>
+                            <li><button class="btn btn-info btn-small">发送消息</button><div class="pull-right"><button class="btn btn-info btn-small">移除好友</button></div></li>
+                        </ul>  
+                    </div>
+                </div><!--end of span3-->
+
+                <div class="span3">
+                    <div class="well">
+                        <ul class="nav nav-list">
+                            <li><img src="assets/img/boy.png"><h5 class='pull-right'>1234567890</h5></li>
+                            <li>&nbsp;</li>
+                            <li><button class="btn btn-info btn-small">发送消息</button><div class="pull-right"><button class="btn btn-info btn-small">移除好友</button></div></li>
+                        </ul>  
+                    </div>
+                </div><!--end of span3-->
+
+                <div class="span3">
+                    <div class="well">
+                        <ul class="nav nav-list">
+                            <li><img src="assets/img/boy.png"><h5 class='pull-right'>1234567890</h5></li>
+                            <li>&nbsp;</li>
+                            <li><button class="btn btn-info btn-small">发送消息</button><div class="pull-right"><button class="btn btn-info btn-small">移除好友</button></div></li>
+                        </ul>  
+                    </div>
+                </div><!--end of span3-->
+
+                <div class="span3">
+                    <div class="well">
+                        <ul class="nav nav-list">
+                            <li><img src="assets/img/boy.png"><h5 class='pull-right'>1234567</h5></li>
+                            <li>&nbsp;</li>
+                            <li><button class="btn btn-info btn-small">发送消息</button><div class="pull-right"><button class="btn btn-info btn-small">移除好友</button></div></li>
+                        </ul>  
+                    </div>
+                </div><!--end of span3-->
+
+            </div><!--end of row-fluid-->
+
+        </div>
+
+
+        <!--消息记录-->
+        <div class="tab-pane fade" id="message">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="well">
+                        <p><strong>time:2013-4-24;</strong></p>
+                        <p><strong>from:123456;</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;IE9 不支持圆角的背景渐变，所以我们干脆移除了。 IE9 jankifies 禁用了button元素， 显示文本为灰色并带有很垃圾的阴影，这个我们实在无法修复。
+                            IE9 不支持圆角的背景渐变，所以我们干脆移除了。 IE9 jankifies 禁用了button元素， 显示文本为灰色并带有很垃圾的阴影，这个我们实在无法修复。
+                        </p>
+                        <p><div class="pull-right"><button class="btn btn-info">回复</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info">删除</button></div></p>
+                    </div>
+                </div>
+            </div><!--end of row-fluid-->
+
+            <div class="row-fluid"><!--开始重复-->
+                <div class="span12">
+                    <div class="well">
+                        <p><strong>time:2013-4-24;</strong></p>
+                        <p><strong>from:123456;</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;IE9 不支持圆角的背景渐变，所以我们干脆移除了。 IE9 jankifies 禁用了button元素， 显示文本为灰色并带有很垃圾的阴影，这个我们实在无法修复。
+                            IE9 不支持圆角的背景渐变，所以我们干脆移除了。 IE9 jankifies 禁用了button元素， 显示文本为灰色并带有很垃圾的阴影，这个我们实在无法修复。
+                        </p>
+                        <p><div class="pull-right"><button class="btn btn-info">回复</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info">删除</button></div></p>
+                    </div>
+                </div>
+            </div><!--end of row-fluid-->
+            <!--结束重复-->
+
+        </div>
+
+
+
+    </div>
+</div> <!--end of  container-->
+<%@include file="include/Footer.jsp"%>

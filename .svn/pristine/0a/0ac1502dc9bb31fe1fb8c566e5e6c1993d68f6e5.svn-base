@@ -1,0 +1,68 @@
+/*
+ *  Copyright 2013 Jidong Chen, Inc. All rights reserved.
+ * 
+ */
+package DWR;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author nightwolf 陈纪栋
+ */
+public class DataUpdator {
+
+    /**
+     *
+     * @return
+     */
+    public HashMap<String, String> getData() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+
+        HashMap<String, String> status = new HashMap<String, String>();
+       
+        String filePath = "C:\\Users\\nightwolf\\Documents\\NetBeansProjects\\LibServer\\location.txt";
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "utf8"));
+        String line = "";
+        while ((line = br.readLine()) != null) {
+            //System.out.println(line);
+            String[] seats = line.split(",");
+            if (seats.length < 3) {
+                continue;
+            }
+            String name = seats[0];
+            String is ;
+            int tmp = (int)(Math.random()*1000);
+            if(tmp%2==0){
+                is ="true";
+            }else{
+                is="false" ;
+            }
+            status.put(name, is) ;
+            
+            //System.out.println(name+is) ;
+        }
+        
+        status.put("a1", "false");
+        return status;
+    }
+    
+    public static void main(String[] args){
+        try {
+            new DataUpdator().getData() ;
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(DataUpdator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DataUpdator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataUpdator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}

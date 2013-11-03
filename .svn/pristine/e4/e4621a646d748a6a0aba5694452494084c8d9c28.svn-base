@@ -1,0 +1,84 @@
+<%-- 
+    Document   : index
+    Created on : 2013-3-17, 14:19:13
+    Author     : nightwolf
+--%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@include file="include/Header.jsp" %>
+
+
+<div class="container-fluid">
+	
+      <div class="row-fluid">
+        <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">在线用户列表...</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">more</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+		
+        <div class="span10">
+          <div class="hero-unit">
+		  <p class="navbar-text pull-right">
+              空座位数：<strong>100</strong>
+            </p>
+			 <p class="navbar-text pull-right">
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+			 <p class="navbar-text pull-right">
+              总座位数：<strong>100</strong>;
+            </p>
+		  <ul class="nav nav-pills">
+            <li class="active">
+               <a href="#">图书馆一楼</a>
+            </li>
+            <li><a href="#">自习A区</a></li>
+            <li><a href="#">自习B区</a></li>
+         </ul>
+		 <hr>
+		 
+            <img class="img-rounded" src="assets/img/BG.bmp"/>
+          </div>
+		  
+          <div class="row-fluid">
+            <div class="span4">
+              <h2>公共信息发布平台</h2>
+              <p>各位读者：
+根据学校清明节放假通知，图书馆各读者服务部门4月4日（清明节）放假一天不开放，4月5日—6日正常开放。
+不便之处，敬请谅解！
+ </p>
+              <p><a class="btn" href="#">View details &raquo;</a></p>
+            </div><!--/span-->
+            <div class="span4">
+              <h2>图书论坛</h2>
+              <p>一年一度的三·一五刚刚过去，各大企业着实度过了战战兢兢的几天。我觉得吧，今年最应该担心的是那些没良心的高排污企业。 </p>
+              <p><a class="btn" href="#">View details &raquo;</a></p>
+            </div><!--/span-->
+            <div class="span4">
+              <h2>好书推荐</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a class="btn" href="#">View details &raquo;</a></p>
+            </div><!--/span-->
+          </div><!--/row-->
+		  
+		  
+          </div>  
+        </div>
+      <hr>
+
+      
+
+    </div><!--/.fluid-container-->
+
+
+
+<%@include file="include/Footer.jsp"%>
+

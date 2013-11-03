@@ -1,0 +1,30 @@
+<%-- 
+    Document   : register
+    Created on : 2013-3-25, 21:41:41
+    Author     : nightwolf
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@include file="include/Header.jsp" %>
+        
+        
+        <form class="form">
+            
+        <h3 class="form-signin-heading">注册信息</h3>
+        
+        
+        <input type="text" id="username" class="input-block-level" placeholder="用户名">
+        <input type="password" id="password1" class="input-block-level" placeholder="密码">
+        <input type="password" id="password2" class="input-block-level" placeholder="确认密码">
+        
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        
+        <button class="btn btn-large btn-primary" type="submit">确认</button>
+        
+      </form>
+
+
+<%@include file="include/Footer.jsp"%>

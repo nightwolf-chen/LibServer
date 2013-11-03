@@ -1,0 +1,30 @@
+<%-- 
+    Document   : proxy
+    Created on : 2013-4-24, 20:49:37
+    Author     : nightwolf
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="include/Header.jsp" %> 
+<%@include file="Login.jsp" %> 
+<script type="text/javascript">
+    function showLogin() {
+        $('#myLogin1').modal('show');
+    }
+</script>
+<%
+    //String username = (String) session.getAttribute("username");
+    if (username == null) {
+        //response.sendRedirect();
+    %>
+    <script type="text/javascript">
+    showLogin() ;
+    </script>
+    <%    
+    } else {
+        String prePage = new String(request.getRequestURL());
+        out.println(prePage);
+        response.sendRedirect(prePage);
+    }
+%>
+<%@include file="include/Footer.jsp" %> 

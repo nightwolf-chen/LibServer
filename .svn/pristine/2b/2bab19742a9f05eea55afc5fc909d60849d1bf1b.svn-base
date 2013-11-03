@@ -1,0 +1,8 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	logallrefupdates = true
+	bare = false
+[remote "LibServer"]
+	url = https://github.com/nightwolf-chen/LibServer.git
+	fetch = +refs/heads/master:refs/remotes/LibServer/master

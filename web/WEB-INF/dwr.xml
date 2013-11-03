@@ -1,0 +1,46 @@
+
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN"
+    "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+    <allow>
+        <create creator="new" javascript="JDate">
+            <param name="class" value="java.util.Date"/>
+        </create>
+        <create creator="new" javascript="UserOperator">
+            <param name="class" value="DWR.UserOperator"/>
+        </create>
+        <create creator="new" javascript="FriendsOperator">
+            <param name="class" value="DWR.FriendsOperator"/>
+        </create>
+        <create creator="new" javascript="SeatsOperator">
+            <param name="class" value="DWR.SeatsOperator"/>
+        </create>
+        <convert converter="bean" match="DWR.User"/>
+    </allow>
+    
+    <allow>
+        <create creator="new" javascript="JDate">
+            <param name="class" value="java.util.Date"/>
+        </create>
+        <create creator="new" javascript="DataUpdator">
+            <param name="class" value="DWR.DataUpdator"/>
+        </create>
+        <convert match="java.lang.Exception" converter="exception"/>  
+<!--下面一定要配置，不然会报如下错误:org.directwebremoting.util.CommonsLoggingOutput error 严重: No converter found for 'java.lang.StackTraceElement' -->  
+         <convert match="java.lang.StackTraceElement" converter="bean"></convert>  
+    </allow>
+    
+     <allow>
+        <create creator="new" javascript="JDate">
+            <param name="class" value="java.util.Date"/>
+        </create>
+        <create creator="new" javascript="DatabaseOperator">
+            <param name="class" value="DWR.DatabaseOperator"/>
+        </create>
+        <convert match="java.lang.Exception" converter="exception"/>  
+<!--下面一定要配置，不然会报如下错误:org.directwebremoting.util.CommonsLoggingOutput error 严重: No converter found for 'java.lang.StackTraceElement' -->  
+         <convert match="java.lang.StackTraceElement" converter="bean"></convert>  
+    </allow>
+</dwr>

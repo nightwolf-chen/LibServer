@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 /**
  *
@@ -18,17 +20,39 @@ import java.util.logging.Logger;
 public class ConnectionPool {
 
     private final String driver = "com.mysql.jdbc.Driver";
-    private final String DatabaseName = "libserver";
+    private String DatabaseName = "libserver";
     private final String Encode = "utf8";
-    private final String ServerHost = "localhost";
-    private final String conStr = "jdbc:mysql://" + ServerHost + ":3306/" + DatabaseName + "?characterEncoding=" + Encode;
-    private final String userName = "root";
-    private final String passWord = "466202783";
-    private final int MAX_CONNECTION_NUMBER = 50;
+    private String ServerHost = "192.168.235.39";
+    private String port = "3306";
+    private String conStr = "jdbc:mysql://" + ServerHost + ":" + port + "/" + DatabaseName + "?characterEncoding=" + Encode;
+    private String userName = "libserver";
+    private String passWord = "123";
+    private final int MAX_CONNECTION_NUMBER = 8;
     private Stack<Connection> connections = new Stack<Connection>();
 
-  
+    /*"name":"d6d665aa69817406d8901cd145e05e3c6",9.       
+     * "hostname":"mysql-node01.us-east-1.aws.af.cm",10.         
+     * "host":"mysql-node01.us-east-1.aws.af.cm",11.        
+     * "port":3306,12.          
+     * "user":"uB7CoL4Hxv9Ny",13.       
+     * "username":"uB7CoL4Hxv9Ny",14.       
+     * "password":"pzAx0iaOp2yKB"
+     *
+     * 
+     */
     public ConnectionPool() {
+        //VCAP_SERVICES
+        String databaseInfo = java.lang.System.getenv("VCAP_SERVICES");
+        
+        if (databaseInfo != null) {
+            JSONObject json = (JSONObject) JSONSerializer.toJSON(databaseInfo);
+            DatabaseName = json.getString("name");
+            ServerHost = json.getString("host");
+            port = json.getString("port");
+            userName = json.getString("username");
+            passWord = json.getString("password");
+            conStr = "jdbc:mysql://" + ServerHost + ":" + port + "/" + DatabaseName + "?characterEncoding=" + Encode;
+        }
         for (int i = 0; i < MAX_CONNECTION_NUMBER; i++) {
             Connection con = getConnection();
             connections.push(con);
@@ -58,10 +82,10 @@ public class ConnectionPool {
         if (connections.isEmpty()) {
             connections.push(getConnection());
         }
-            return connections.pop();
+        return connections.pop();
     }
-    
-    public void returnConnectionToPool(Connection con){
-            connections.push(con);
+
+    public void returnConnectionToPool(Connection con) {
+        connections.push(con);
     }
 }

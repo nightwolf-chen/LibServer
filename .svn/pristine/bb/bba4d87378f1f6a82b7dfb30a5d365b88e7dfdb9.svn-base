@@ -1,0 +1,232 @@
+<%-- 
+    Document   : index
+    Created on : 2013-3-17, 14:19:13
+    Author     : nightwolf
+--%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@include file="include/Header.jsp" %>
+
+<script type="text/javascript" src="dwr/engine.js"></script>
+<script type="text/javascript" src="dwr/util.js"></script>
+<script type="text/javascript" src="dwr/interface/DataUpdator.js"></script>
+<script type="text/javascript">
+
+
+    function refreshPage(data)
+    {
+        for (var key in data)
+        {
+            if (data[key] === "true") {
+                document.getElementById(key).style.visibility = "visible";
+            } else {
+                document.getElementById(key).style.visibility = "hidden";
+            }
+        }
+
+    }
+    function update()
+    {
+        DataUpdator.getData(refreshPage);
+    }
+    var timerID = setInterval("update()", 2000);
+</script>
+
+<script>
+
+    $(document).ready(function() {
+    });
+    function hiden() {
+        $("#well").hide();//hide()函数,实现隐藏,括号里还可以带一个时间参数(毫秒)例如hide(2000)以2000毫秒的速度隐藏,还可以带slow,fast         
+    }
+    function slideToggle() {
+        $("#divObj").slideToggle(2000);//窗帘效果的切换,点一下收,点一下开,参数可以无,参数说明同上         
+    }
+    function show() {
+        $("#divObj").show();//显示,参数说明同上         
+    }
+    function toggle() {
+        $("#well").toggle(2000);//显示隐藏切换,参数可以无,参数说明同上         
+    }
+    function slide() {
+        $("#divObj").slideDown();//窗帘效果展开         
+    }
+    window.onload = hiden;
+</script>
+
+<div  class="container-fluid">
+
+    <div class="row-fluid"  onclick="toggle()"><a href="#">查看在线用户</a></div>
+
+    <div  id="well"class="row-fluid" style="display: none">
+
+        <div   class="well sidebar-nav">
+            <div class="accordion" id="accordion1">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                            一区用户
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+
+                            <%
+                                for (int i = 0; i < 12; i++) {
+                            %>
+                            <div class="span1"><img  src="assets/img/boy.png" /> </div> 
+                                <%                                    }
+                                %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                            二区用户
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <%
+                                for (int i = 0; i < 12; i++) {
+                            %>
+
+                            <div class="span1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><img  src="assets/img/boy.png" /> </div> 
+
+                            <%                                    }
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div> <!--end of row--->
+
+
+
+    <div class="row-fluid"> 
+        <div class="hero-unit">
+            <p class="navbar-text pull-right">
+                空座位数：<strong>100</strong>
+            </p>
+            <p class="navbar-text pull-right">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+            <p class="navbar-text pull-right">
+                总座位数：<strong>100</strong>;
+            </p>
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#">图书馆一楼</a>
+                </li>
+                <li><a href="#">自习A区</a></li>
+                <li><a href="#">自习B区</a></li>
+            </ul>
+
+
+            <%
+                String filePath = application.getRealPath("/") + "files/location.txt";
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "utf8"));
+            %>
+
+            <div class="back"  style="position:relative;background-image: url(assets/img/BG.JPG);height: 1501px;width: 883px" >
+
+                <%
+                    String line = "";
+                    while ((line = br.readLine()) != null) {
+                        System.out.println(line);
+                        String[] seats = line.split(",");
+                        if (seats.length < 3) {
+                            continue;
+                        }
+                        String name = seats[0];
+                        String left = seats[1];
+                        String top = seats[2];
+                %>
+                <div id="p<%=name%>" data-toggle="modal" data-target="#myModal" onclick="updateModal('<%=name%>', '<%=name%>')"rel="popover"  data-trigger="hover" data-content="图书馆一楼座位：<%=name%>。要收藏座位请单击" data-original-title="这里是" style="position:absolute;left:<%=left%>px ;top:<%=top%>px;"><img id="<%=name%>" class="img-rounded"  src="assets/img/boy.png" style="visibility: hidden" /> 
+                </div>
+                <script>
+    $(function()
+    {
+        $("#p<%=name%>").popover();
+    });
+
+                </script>
+                <%
+                    }
+                %>
+
+                <script type="text/javascript">
+                    function updateModal(seatName, stu)
+                    {
+                        //alert("changeing");
+                        document.getElementById("seatName").innerText = "该座位的编号为：" + seatName;
+                        document.getElementById("seatStu").innerText = "在座同学为：" + stu;
+                    }
+                </script>
+                <!-- Modal -->
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">你可以收藏座位，添加对方为好友</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>收藏座位以后就可以方便的查看位置是否已经有人。</p>
+                        <p>有了图书馆好基友就可以更加有效率地学学习了!</p>
+                        <p id="seatName"></p>
+                        <p id="seatStu"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">收藏该座位</button>
+                        <button class="btn btn-primary">将座位上的同学加为好友</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row-fluid">
+        <div class="span4">
+            <h2>公共信息发布平台</h2>
+            <p>各位读者：
+                根据学校清明节放假通知，图书馆各读者服务部门4月4日（清明节）放假一天不开放，4月5日—6日正常开放。
+                不便之处，敬请谅解！
+            </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!--/span-->
+        <div class="span4">
+            <h2>图书论坛</h2>
+            <p>一年一度的三·一五刚刚过去，各大企业着实度过了战战兢兢的几天。我觉得吧，今年最应该担心的是那些没良心的高排污企业。 </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!--/span-->
+        <div class="span4">
+            <h2>好书推荐</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!--/span-->
+    </div><!--/row-->
+
+
+
+</div><!--/.fluid-container-->
+
+
+
+<%@include file="include/Footer.jsp"%>
+
