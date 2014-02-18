@@ -10,8 +10,7 @@ import java.sql.SQLException;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
+
 
 /**
  *
@@ -45,13 +44,7 @@ public class ConnectionPool {
         String databaseInfo = java.lang.System.getenv("VCAP_SERVICES");
         
         if (databaseInfo != null) {
-            JSONObject json = (JSONObject) JSONSerializer.toJSON(databaseInfo);
-            DatabaseName = json.getString("name");
-            ServerHost = json.getString("host");
-            port = json.getString("port");
-            userName = json.getString("username");
-            passWord = json.getString("password");
-            conStr = "jdbc:mysql://" + ServerHost + ":" + port + "/" + DatabaseName + "?characterEncoding=" + Encode;
+         
         }
         for (int i = 0; i < MAX_CONNECTION_NUMBER; i++) {
             Connection con = getConnection();
